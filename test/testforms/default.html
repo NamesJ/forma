@@ -1,0 +1,170 @@
+<html>
+  <head>
+    <title>Default Test-Form</title>
+
+    <script>
+      window.autoform_tests = [];
+    </script>
+
+    <script src="default.js"></script>
+  </head>
+  <body>
+
+    <form>
+      <label for="firstname" name="firstname_label">First name:</label>
+      <input type="text" name="firstname"><br>
+      <br>
+
+      <label for="lastname" name="lastname_label">Last name:</label>
+      <input type="text" name="lastname"><br>
+      <br>
+
+      <label for="pref-numbers" name="pref-numbers_label">Preferred numbers:</label>
+      <select name="pref-numbers">
+        <option name="pref-numbers_blank" value="" selected></option>
+        <option name="pref-numbers_prime" value="prime">Prime</option>
+        <option name="pref-numbers_composite" value="composite">Composite</option>
+      </select><br>
+      <br>
+
+      <div>
+        <label for="this" name="this_label">This:</label>
+        <input type="radio" name="this" value="this">
+        <span>
+           or
+          <label for="that" name="that_label">That:</label>
+          <input type="radio" name="that" value="that">
+        </span>
+      </div><br>
+      <br>
+
+      <div>
+        <label for="science" name="science_label">Science:</label>
+        <input type="checkbox" name="science">
+        <span>
+          <label for="technology" name="technology_label">Technology:</label>
+          <input type="checkbox" name="technology">
+
+          <label for="engineering" name="engineering_label">Engineering:</label>
+          <input type="checkbox" name="engineering">
+
+          <label for="mathematics" name="mathematics_label">Math:</label>
+          <input type="checkbox" name="mathematics">
+        </span>
+      </div>
+
+      <div>
+        <input type="button" name="click-me" value="Click Me (if you want)">
+        <span>
+          <input type="button" name="do-not-click-me" value="Do Not Click Me (if you want)">
+        </span>
+      </div><br>
+      <br>
+
+    </form><br>
+    <br>
+
+    <h2>Valid: <span id="validated" style="font-weight:bold">FALSE</span></h2><br>
+    <br>
+
+    <h3>Log</h3>
+    <div id="log"></div>
+
+
+
+
+    <script>
+      /***** Most have labels *****/
+
+      /*** Textfields ***/
+      // Firstname textfield pref_numbers_label
+      var firstname_label = document.getElementsByName('firstname_label')[0];
+      addClickLogger(firstname_label);
+      // Firstname textfield
+      var firstname_textfield = document.getElementsByName('firstname')[0];
+      addClickLogger(firstname_textfield);
+      addTextLogger(firstname_textfield, 'Ada');
+      // Lastname textfield label
+      var lastname_label = document.getElementsByName('lastname_label')[0];
+      addClickLogger(lastname_label);
+      // Lastname textfield
+      var lastname_textfield = document.getElementsByName('lastname')[0];
+      addClickLogger(lastname_textfield);
+      addTextLogger(lastname_textfield, 'Lovelace');
+
+      /*** Selectbox ***/
+      // Preferred numbers selectbox label
+      var pref_numbers_label = document.getElementsByName('pref-numbers_label')[0];
+      addClickLogger(pref_numbers_label);
+      // Preferred numbers selectbox
+      var pref_numbers_selectfield = document.getElementsByName('pref-numbers')[0];
+      addClickLogger(pref_numbers_selectfield);
+      addSelectLogger(pref_numbers_selectfield, 'Prime');
+
+      /*** Radiobuttons ***/
+      // This radiobutton label
+      var this_label = document.getElementsByName('this_label')[0];
+      addClickLogger(this_label);
+      // This radiobutton
+      var this_radiobutton = document.getElementsByName('this')[0];
+      addClickLogger(this_radiobutton);
+      // That radiobutton label
+      var that_label = document.getElementsByName('that_label')[0];
+      addClickLogger(that_label);
+      // That radiobutton
+      var that_radiobutton = document.getElementsByName('that')[0];
+      addClickLogger(that_radiobutton);
+
+      /*** Checkboxes ***/
+      // Science checkbox label
+      var science_label = document.getElementsByName('science_label')[0];
+      addClickLogger(science_label);
+      // Science checkbox
+      var science = document.getElementsByName('science')[0];
+      addClickLogger(science);
+      // Technology checkbox label
+      var technology_label = document.getElementsByName('technology_label')[0];
+      addClickLogger(technology_label);
+      // Technology checkbox
+      var technology = document.getElementsByName('technology')[0];
+      addClickLogger(technology);
+      // Engineering checkbox label
+      var engineering_label = document.getElementsByName('engineering_label')[0];
+      addClickLogger(engineering_label);
+      // Engineering checkbox
+      var engineering = document.getElementsByName('engineering')[0];
+      addClickLogger(engineering);
+      // Mathematics checkbox label
+      var mathematics_label = document.getElementsByName('mathematics_label')[0];
+      addClickLogger(mathematics_label);
+      // Mathematics checkbox
+      var mathematics = document.getElementsByName('mathematics')[0];
+      addClickLogger(mathematics);
+
+      // Click Me (if you want) button
+      var click_me = document.getElementsByName('click-me')[0];
+      addClickLogger(click_me);
+      // Do Not Click Me (if you want) button
+      var do_not_click_me = document.getElementsByName('do-not-click-me')[0];
+
+
+      var tm_validate = null;
+
+      function validate_timeout(tm){
+        var validated = document.getElementById('validated');
+        var isValid = validate();
+        validated.innerText = isValid.toString().toUpperCase();
+        if (isValid){
+          validated.style.color = 'green';
+          window.clearTimeout(tm);
+        } else {
+          validated.style.color = 'red';
+          tm = setTimeout(validate_timeout, 10);
+        }
+      }
+
+      tm_validate = setTimeout(validate_timeout, 10);
+    </script>
+
+  </body>
+</html>
